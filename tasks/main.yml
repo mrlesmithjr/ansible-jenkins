@@ -1,0 +1,8 @@
+---
+# tasks file for ansible-jenkins
+- include: debian.yml
+  when: install_jenkins
+
+- include: users.yml
+  tags: [configure_jenkins_user]
+  when: install_jenkins

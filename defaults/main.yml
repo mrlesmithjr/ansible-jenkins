@@ -1,0 +1,8 @@
+---
+# defaults file for ansible-jenkins
+enable_jenkins_sudo: false  #defines if jenkins user should have sudo rights (Useful for running Ansible tasks from CLI)
+install_jenkins: true  #defines if jenkins should be installed
+install_tower_cli: false  #defines if ansible tower cli should be installed
+jenkins_apt_key: http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key
+jenkins_apt_repo: 'deb http://pkg.jenkins-ci.org/debian binary/'
+jenkins_home_dir: /var/lib/jenkins
