@@ -1,4 +1,10 @@
 ---
+- name: debian | installing pre-reqs for Ubuntu Precise
+  apt: name={{ item }} state=present
+  with_items:
+    - python-software-properties
+  when: ansible_distribution_version|int < 14.04
+
 - name: debian | adding jenkins repo key
   apt_key: url={{ jenkins_apt_key }} state=present
 
