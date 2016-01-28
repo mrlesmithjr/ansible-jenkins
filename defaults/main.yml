@@ -11,4 +11,6 @@ jenkins_plugins:
   - ansible
   - git
   - ldap
+  - PowerShell
   - ssh
+  - vSphere
