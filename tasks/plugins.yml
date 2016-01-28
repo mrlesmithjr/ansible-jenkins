@@ -1,0 +1,9 @@
+---
+- name: plugins | downloading jenkins-cli
+  get_url:
+    url: "http://127.0.0.1:8080/jnlpJars/jenkins-cli.jar"
+    dest: "{{ jenkins_home_dir }}/jenkins-cli.jar"
+    owner: jenkins
+    group: jenkins
+  args:
+    creates: "{{ jenkins_home_dir }}/jenkins-cli.jar"

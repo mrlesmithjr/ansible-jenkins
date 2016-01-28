@@ -7,3 +7,5 @@
   tags:
     - configure_jenkins_user
   when: install_jenkins is defined and install_jenkins
+
+- include: plugins.yml
