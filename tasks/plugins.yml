@@ -12,4 +12,12 @@
 
 - name: plugins | upgrading installed plugins
   shell: "java -jar {{ jenkins_cli_path }} -s http://localhost:8080 install-plugin {{ item }}"
+  notify:
+    - restart jenkins
   with_items: jenkins_installed_plugins.stdout_lines
+
+- name: plugins | installing plugins
+  shell: "java -jar {{ jenkins_cli_path }} -s http://localhost:8080 install-plugin {{ item }}"
+  notify:
+    - restart jenkins
+  with_items: jenkins_plugins

@@ -8,4 +8,7 @@ jenkins_apt_repo: 'deb http://pkg.jenkins-ci.org/debian binary/'
 jenkins_cli_path: '{{ jenkins_home_dir }}/jenkins-cli.jar'
 jenkins_home_dir: /var/lib/jenkins
 jenkins_plugins:
+  - ansible
+  - git
   - ldap
+  - ssh
