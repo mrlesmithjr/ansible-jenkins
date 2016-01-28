@@ -5,5 +5,3 @@
     dest: "{{ jenkins_home_dir }}/jenkins-cli.jar"
     owner: jenkins
     group: jenkins
-  args:
-    creates: "{{ jenkins_home_dir }}/jenkins-cli.jar"
