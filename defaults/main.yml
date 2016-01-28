@@ -10,7 +10,8 @@ jenkins_home_dir: /var/lib/jenkins
 jenkins_plugins:
   - ansible
   - git
+  - gitlab-plugin	
   - ldap
   - PowerShell
   - ssh
-  - vSphere
+  - vsphere-cloud
