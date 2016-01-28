@@ -1,7 +1,15 @@
 ---
 - name: plugins | downloading jenkins-cli
   get_url:
-    url: "http://127.0.0.1:8080/jnlpJars/jenkins-cli.jar"
+    url: "http://localhost:8080/jnlpJars/jenkins-cli.jar"
     dest: "{{ jenkins_home_dir }}/jenkins-cli.jar"
     owner: jenkins
     group: jenkins
+
+- name: plugins | gathering installed plugins
+  shell: "java -jar {{ jenkins_cli_path }} -s http://localhost:8080 list-plugins | cut -f 1 -d ' '"
+  register: jenkins_installed_plugins
+
+- name: plugins | upgrading installed plugins
+  shell: "java -jar {{ jenkins_cli_path }} -s http://localhost:8080 install-plugin {{ item }}"
+  with_items: jenkins_installed_plugins.stdout
