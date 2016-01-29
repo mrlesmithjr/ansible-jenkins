@@ -7,7 +7,7 @@
 - name: plugins | waiting for jenkins to start
   wait_for:
     port: 8080
-    delay: 10
+    delay: 20
 
 - name: plugins | downloading jenkins-cli
   get_url:
