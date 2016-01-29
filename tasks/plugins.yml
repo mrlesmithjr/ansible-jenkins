@@ -16,18 +16,23 @@
     owner: jenkins
     group: jenkins
 
-- name: plugins | gathering installed plugins
-  shell: "java -jar {{ jenkins_cli_path }} -s http://localhost:8080 list-plugins | cut -f 1 -d ' '"
-  register: jenkins_installed_plugins
+- name: plugins | gathering plugins with updates available
+  shell: "java -jar {{ jenkins_cli_path }} -s http://localhost:8080 list-plugins | grep -e ')$' | awk '{ print $1 }'"
+  register: jenkins_plugin_updates
 
 - name: plugins | upgrading installed plugins
   shell: "java -jar {{ jenkins_cli_path }} -s http://localhost:8080 install-plugin {{ item }}"
   notify:
     - restart jenkins
-  with_items: jenkins_installed_plugins.stdout_lines
+  with_items: jenkins_plugin_updates.stdout_lines
+
+  - name: plugins | gathering installed plugins
+  shell: "java -jar {{ jenkins_cli_path }} -s http://localhost:8080 list-plugins | cut -f 1 -d ' '"
+  register: jenkins_installed_plugins
 
 - name: plugins | installing plugins
   shell: "java -jar {{ jenkins_cli_path }} -s http://localhost:8080 install-plugin {{ item }}"
   notify:
     - restart jenkins
   with_items: jenkins_plugins
+  when: item not in jenkins_installed_plugins.stdout_lines
