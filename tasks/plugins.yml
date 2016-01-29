@@ -2,7 +2,7 @@
 - name: plugins | ensuring jenkins is running
   service:
     name: "jenkins"
-    state: restarted
+    state: started
 
 - name: plugins | waiting for jenkins to start
   wait_for:
