@@ -26,7 +26,7 @@
     - restart jenkins
   with_items: jenkins_plugin_updates.stdout_lines
 
-  - name: plugins | gathering installed plugins
+- name: plugins | gathering installed plugins
   shell: "java -jar {{ jenkins_cli_path }} -s http://localhost:8080 list-plugins | cut -f 1 -d ' '"
   register: jenkins_installed_plugins
 
