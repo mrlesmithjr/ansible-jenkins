@@ -1,0 +1,13 @@
+---
+- name: config_jenkins | configuring jenkins
+  template:
+    src: "{{ item }}.j2"
+    dest: "{{ jenkins_home_dir }}/{{ item }}"
+    owner: jenkins
+    group: jenkins
+  notify:
+    - restart jenkins
+  with_items:
+    - 'config.xml'
+    - 'hudson.tasks.Mailer.xml'
+    - 'org.jenkinsci.plugins.ansible.AnsibleInstallation.xml'

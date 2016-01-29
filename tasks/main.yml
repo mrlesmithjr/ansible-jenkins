@@ -9,3 +9,6 @@
   when: install_jenkins is defined and install_jenkins
 
 - include: plugins.yml
+
+- include: config_jenkins.yml
+  when: config_jenkins is defined and config_jenkins
