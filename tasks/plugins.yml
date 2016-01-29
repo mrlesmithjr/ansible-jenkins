@@ -4,14 +4,17 @@
     name: "jenkins"
     state: restarted
 
+- name: plugins | waiting for jenkins to start
+  wait_for:
+    port: 8080
+    delay: 10
+
 - name: plugins | downloading jenkins-cli
   get_url:
     url: "http://localhost:8080/jnlpJars/jenkins-cli.jar"
     dest: "{{ jenkins_home_dir }}/jenkins-cli.jar"
     owner: jenkins
     group: jenkins
-  wait_for:
-    port: 8080
 
 - name: plugins | gathering installed plugins
   shell: "java -jar {{ jenkins_cli_path }} -s http://localhost:8080 list-plugins | cut -f 1 -d ' '"
