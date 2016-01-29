@@ -1,4 +1,9 @@
 ---
+- name: plugins | ensuring jenkins is running
+  service:
+    name: "jenkins"
+    state: restarted
+    
 - name: plugins | downloading jenkins-cli
   get_url:
     url: "http://localhost:8080/jnlpJars/jenkins-cli.jar"
