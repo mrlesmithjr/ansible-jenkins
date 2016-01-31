@@ -39,6 +39,7 @@ jenkins_plugins:
   - 'build-pipeline-plugin'
   - 'git'
   - 'gitlab-plugin'
+  - 'job-dsl'
   - 'ldap'
   - 'logstash'
   - 'PowerShell'
@@ -49,4 +50,5 @@ jenkins_plugins:
   - 'vmware-vrealize-automation-plugin'
   - 'vmware-vrealize-codestream'
   - 'vsphere-cloud'
+  - 'workflow-aggregator'
 pri_domain_name: example.org
