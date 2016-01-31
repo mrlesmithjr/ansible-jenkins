@@ -36,6 +36,7 @@ jenkins_ldap_info:
 jenkins_plugins:
   - 'active-directory'
   - 'ansible'
+  - 'build-pipeline-plugin'
   - 'git'
   - 'gitlab-plugin'
   - 'ldap'
