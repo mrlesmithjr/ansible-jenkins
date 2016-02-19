@@ -25,6 +25,7 @@
 - name: plugins | gathering plugins with updates available
   shell: "java -jar {{ jenkins_cli_path }} -s http://localhost:8080 list-plugins | grep -e ')$' | awk '{ print $1 }'"
   register: jenkins_plugin_updates
+  changed_when: false
   when: >
         not jenkins_secure_setup.stat.exists
 
@@ -39,6 +40,7 @@
 - name: plugins | gathering installed plugins
   shell: "java -jar {{ jenkins_cli_path }} -s http://localhost:8080 list-plugins | cut -f 1 -d ' '"
   register: jenkins_installed_plugins
+  changed_when: false
   when: >
         not jenkins_secure_setup.stat.exists
 
