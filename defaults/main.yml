@@ -9,11 +9,12 @@ jenkins_ansible_info:
 jenkins_apt_repo: 'deb http://pkg.jenkins-ci.org/debian binary/'
 jenkins_cli_path: '{{ jenkins_home_dir }}/jenkins-cli.jar'
 jenkins_config_info:
-  num_executors: 2
-  use_security: true
-  auth_strategy: 'AuthorizationStrategy$Unsecured'  #AuthorizationStrategy$Unsecured or FullControlOnceLoggedInAuthorizationStrategy
+  auth_strategy: 'FullControlOnceLoggedInAuthorizationStrategy'  #AuthorizationStrategy$Unsecured or FullControlOnceLoggedInAuthorizationStrategy
   disable_remember_me: false
+  disable_setup_wizard: false  #defines if setup wizard is disabled
+  num_executors: 2
   system_message: 'Welcome to the Jenkins lab'
+  use_security: true
 jenkins_debian_pre_req_packages:
   - 'default-jdk'
   - 'default-jre-headless'
