@@ -18,6 +18,7 @@ jenkins_config_info:
 jenkins_debian_pre_req_packages:
   - 'default-jdk'
   - 'default-jre-headless'
+  - 'git'
   - 'jenkins'
 jenkins_email_info:
   default_suffix: '@{{ pri_domain_name }}'
@@ -56,6 +57,7 @@ jenkins_plugins:
   - 'vsphere-cloud'
   - 'workflow-aggregator'
 jenkins_redhat_pre_req_packages:
+  - 'git'
   - 'java-1.7.0-openjdk'
 jenkins_repo_key: 'http://pkg.jenkins-ci.org/{{ ansible_os_family|lower }}/jenkins-ci.org.key'
 pri_domain_name: 'example.org'
