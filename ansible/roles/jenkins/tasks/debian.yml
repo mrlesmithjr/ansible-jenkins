@@ -23,6 +23,17 @@
     state: "latest"
   with_items: '{{ jenkins_debian_pre_req_packages }}'
 
+#- name: Download specific Jenkins version.
+#  get_url:
+#    url: "{{ jenkins_apt_repo }}/jenkins_{{ jenkins_version }}_all.deb"
+#    dest: "/tmp/jenkins.deb"
+#  when: jenkins_version is defined
+
+#- name: Install Jenkins Version {{ jenkins_version }}
+#  apt:
+#    name: "jenkins={{ jenkins_version }}"
+#    state: "present"
+
 - name: debian | Installing Jenkins
   apt:
     name: "jenkins"
