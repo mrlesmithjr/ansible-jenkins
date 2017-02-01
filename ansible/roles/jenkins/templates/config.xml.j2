@@ -17,6 +17,9 @@
 {%   elif not jenkins_ldap_info.active_directory %}
     <userSearch>uid={0}</userSearch>
 {%   endif %}
+{% if jenkins_ldap_info.enabled %}
+    <securityRealm class="hudson.security.SecurityRealm$None">
+{%   endif %}
     <groupSearchFilter>(&amp;(objectclass=group)(cn={0}))</groupSearchFilter>
     <groupMembershipStrategy class="jenkins.security.plugins.ldap.FromGroupSearchLDAPGroupMembershipStrategy">
       <filter></filter>

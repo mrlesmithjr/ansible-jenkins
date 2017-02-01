@@ -1,0 +1,13 @@
+*~
+*#
+.#*
+\#*#
+.*.sw[a-z]
+*.un~
+pkg/
+.DS_Store
+*.retry
+
+# Vagrant
+.vagrant
+

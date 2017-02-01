@@ -20,9 +20,7 @@
   stat:
     path: "{{ jenkins_home_dir }}/.jenkins_secure_setup"
   register: jenkins_secure_setup
-  when: >
-        jenkins_config_info.use_security is defined and
-        jenkins_config_info.use_security
+  when: jenkins_config_info.use_security is defined
 
 - name: plugins | Gathering Plugins With Updates Available
   shell: "java -jar {{ jenkins_cli_path }} -s http://localhost:8080 list-plugins | grep -e ')$' | awk '{ print $1 }'"
@@ -39,6 +37,9 @@
   when: >
         not jenkins_secure_setup.stat.exists
 
+- name: Stop Jenkins
+  service: name=jenkins  state=stopped
+
 - name: plugins | Gathering Installed Plugins
   shell: "java -jar {{ jenkins_cli_path }} -s http://localhost:8080 list-plugins | cut -f 1 -d ' '"
   register: "jenkins_installed_plugins"
@@ -46,8 +47,53 @@
   when: >
         not jenkins_secure_setup.stat.exists
 
+#- name: preparation for plugins | Removing Security Lines
+#  lineinfile:
+#    dest: /var/lib/jenkins/config.xml
+#    state: absent
+#    regexp: "{{ item }}"
+#  with_items:
+#    - "authorizationStrategy"
+#    - "projectNamingStrategy"
+#    - "denyAnonymousReadAccess"
+#    - "securityRealm"
+#    - "disableSignup"
+#    - "enableCaptcha"
+
+#- name: preparation for plugins | Disabling Security
+#  lineinfile:
+#    dest: /var/lib/jenkins/config.xml
+#    regexp: "<useSecurity>"
+#    line: "<useSecurity>false</useSecurity>"
+#  notify:
+#    - 'start jenkins'
+
+- name: preparation for plugins | Disabling Security
+  replace:
+    dest: /var/lib/jenkins/config.xml
+    regexp: '^(.*)<denyAnonymousReadAccess>true</denyAnonymousReadAccess>(.*)$'
+    replace: '\1<denyAnonymousReadAccess>false</denyAnonymousReadAccess>\2'
+
+- name: preparation for plugins | Disabling Security
+  replace:
+    dest: /var/lib/jenkins/config.xml
+    regexp: '^(.*)hudson.security.FullControlOnceLoggedInAuthorizationStrategy(.*)$'
+    replace: '\1hudson.security.AuthorizationStrategy$Unsecured\2'
+  notify:
+    - 'restart jenkins'
+
+- name: plugins | Ensuring Jenkins Is Running
+  service:
+    name: "jenkins"
+    state: "started"
+
+- name: plugins | Waiting For Jenkins To Start
+  wait_for:
+    port: 8080
+    delay: 40
+
 - name: plugins | Installing Plugins
-  shell: "java -jar {{ jenkins_cli_path }} -s http://localhost:8080 install-plugin {{ item }}"
+  shell: "java -jar {{ jenkins_cli_path }} -s http://localhost:8080 install-plugin {{ item }} -restart; sleep 20"
   notify:
     - 'restart jenkins'
   with_items: '{{ jenkins_plugins }}'

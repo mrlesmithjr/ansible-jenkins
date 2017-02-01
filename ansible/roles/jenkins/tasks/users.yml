@@ -20,3 +20,14 @@
     src: "{{ jenkins_home_dir }}/.ssh/id_rsa.pub"
     dest: "./ssh_pub_keys/jenkins@{{ ansible_hostname }}.pub"
     flat: yes
+
+- name: Change ownership Home Directory
+  file: 
+    path: "{{ jenkins_home_dir }}"
+    recurse: yes
+    owner: jenkins
+    group: jenkins
+
+- name: Update /etc/default/jenkins on Ubuntu
+  template: src=../ansible/roles/jenkins/templates/etc/default/jenkins.j2 dest=/etc/default/jenkins
+  when: ansible_os_family == "Debian"
