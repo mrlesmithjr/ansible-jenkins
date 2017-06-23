@@ -9,6 +9,7 @@
       num_executors: 2
       system_message: 'Welcome to the Jenkins lab'
       use_security: false
+    jenkins_fqdn: 'http://192.168.250.10:{{ jenkins_port }}'
     jenkins_manage_plugins: true
     jenkins_plugins:
       # - 'active-directory'
