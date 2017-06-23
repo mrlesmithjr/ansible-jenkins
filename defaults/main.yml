@@ -3,6 +3,11 @@
 config_jenkins: false  #defines if jenkins will be configured from templates or left as default install
 enable_jenkins_sudo: false  #defines if jenkins user should have sudo rights (Useful for running Ansible tasks from CLI)
 install_tower_cli: false  #defines if ansible tower cli should be installed
+
+# Notification e-mails from Jenkins to project owners will be sent with this
+# address in the from header.
+jenkins_admin_email: 'admin@{{ pri_domain_name }}'
+
 jenkins_ansible_info:
   name: 'Default'
   home: '/usr/local/bin'
@@ -23,6 +28,14 @@ jenkins_config_info:
   num_executors: 2
   system_message: 'Welcome to the Jenkins lab'
   use_security: true
+
+jenkins_config_files:
+  - 'config.xml'
+  - 'hudson.tasks.Mailer.xml'
+  - 'jenkins.CLI.xml'
+  - 'jenkins.model.JenkinsLocationConfiguration.xml'
+  - 'org.jenkinsci.plugins.ansible.AnsibleInstallation.xml'
+
 jenkins_debian_pre_req_packages:
   - 'default-jdk'
   - 'default-jre-headless'
@@ -34,6 +47,12 @@ jenkins_email_info:
   smtp_host: 'smtp.{{ pri_domain_name }}'
   use_ssl: false
   smtp_port: 25
+
+# specify the HTTP address of the Jenkins installation, such as
+# http://yourhost.yourdomain/jenkins/. This value is used to let Jenkins know
+# how to refer to itself, ie. to display images or to create links in emails.
+jenkins_fqdn: 'http://{{ ansible_hostname }}.{{ pri_domain_name }}:{{ jenkins_port }}'
+
 jenkins_home_dir: '/var/lib/jenkins'
 jenkins_ldap_info:
   active_directory: true
@@ -64,6 +83,9 @@ jenkins_plugins:
   - 'vmware-vrealize-codestream'
   - 'vsphere-cloud'
   - 'workflow-aggregator'
+
+jenkins_port: 8080
+
 jenkins_redhat_pre_req_packages:
   - 'git'
   - 'java-1.7.0-openjdk'

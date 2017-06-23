@@ -35,11 +35,7 @@
     group: "jenkins"
   notify:
     - 'restart jenkins'
-  with_items:
-    - 'config.xml'
-    - 'hudson.tasks.Mailer.xml'
-    - 'jenkins.CLI.xml'
-    - 'org.jenkinsci.plugins.ansible.AnsibleInstallation.xml'
+  with_items: '{{ jenkins_config_files }}'
 
 - name: config_jenkins | Checking If Secure Setup
   stat:
