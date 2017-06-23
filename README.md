@@ -1,6 +1,6 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [ansible-jenkins](#ansible-jenkins)
   - [Requirements](#requirements)
@@ -9,7 +9,7 @@
   - [Example Playbook](#example-playbook)
   - [Vagrant Usage](#vagrant-usage)
     - [Spinning up Vagrant test environment](#spinning-up-vagrant-test-environment)
-  - [Tearing down Vagrant test environment](#tearing-down-vagrant-test-environment)
+    - [Tearing down Vagrant test environment](#tearing-down-vagrant-test-environment)
   - [License](#license)
   - [Author Information](#author-information)
 
@@ -128,7 +128,7 @@ begin doing some cool stuff.
 > NOTE: This setup is an insecure setup without any authentication enabled
 > and it should be treated as purely a playground.
 
-## Tearing down Vagrant test environment
+### Tearing down Vagrant test environment
 
 Once you are done using this test environment and are ready to tear it all down
 simply execute:
