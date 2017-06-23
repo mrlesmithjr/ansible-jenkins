@@ -38,6 +38,7 @@
   with_items:
     - 'config.xml'
     - 'hudson.tasks.Mailer.xml'
+    - 'jenkins.CLI.xml'
     - 'org.jenkinsci.plugins.ansible.AnsibleInstallation.xml'
 
 - name: config_jenkins | Checking If Secure Setup
