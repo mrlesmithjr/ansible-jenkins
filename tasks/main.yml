@@ -14,10 +14,10 @@
   tags:
     - configure_jenkins_user
 
-- include: plugins.yml
-  when: jenkins_manage_plugins
-
 - include: config_jenkins.yml
   when: config_jenkins
+
+- include: plugins.yml
+  when: jenkins_manage_plugins
 
 - include: finalize.yml
