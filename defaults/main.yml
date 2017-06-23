@@ -7,6 +7,14 @@ jenkins_ansible_info:
   name: 'Default'
   home: '/usr/local/bin'
 jenkins_apt_repo: 'deb http://pkg.jenkins-ci.org/debian binary/'
+
+# Whether to enable the historical Jenkins CLI mode over remoting
+# (-remoting option in the client). While this may be necessary to support
+# certain commands or command options, it is considered intrinsically insecure.
+# (-http mode is always available, and -ssh mode is available whenever the SSH
+# service is enabled.)
+jenkins_cli_mode_over_remoting: false
+
 jenkins_cli_path: '{{ jenkins_home_dir }}/jenkins-cli.jar'
 jenkins_config_info:
   auth_strategy: 'FullControlOnceLoggedInAuthorizationStrategy'  #AuthorizationStrategy$Unsecured or FullControlOnceLoggedInAuthorizationStrategy
