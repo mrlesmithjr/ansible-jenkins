@@ -19,17 +19,14 @@
 - name: config_jenkins | Checking If Secure Setup
   stat:
     path: "{{ jenkins_home_dir }}/.jenkins_secure_setup"
-  register: jenkins_secure_setup
-  when: >
-        jenkins_config_info.use_security is defined and
-        jenkins_config_info.use_security
+  register: "_jenkins_secure_setup_plugins"
 
 - name: plugins | Gathering Plugins With Updates Available
   shell: "java -jar {{ jenkins_cli_path }} -s http://localhost:8080 list-plugins | grep -e ')$' | awk '{ print $1 }'"
   register: "jenkins_plugin_updates"
   changed_when: false
   when: >
-        not jenkins_secure_setup.stat.exists
+        not _jenkins_secure_setup_plugins.stat.exists
 
 - name: plugins | Upgrading Installed Plugins
   shell: "java -jar {{ jenkins_cli_path }} -s http://localhost:8080 install-plugin {{ item }}"
@@ -37,14 +34,14 @@
     - 'restart jenkins'
   with_items: '{{ jenkins_plugin_updates.stdout_lines }}'
   when: >
-        not jenkins_secure_setup.stat.exists
+        not _jenkins_secure_setup_plugins.stat.exists
 
 - name: plugins | Gathering Installed Plugins
   shell: "java -jar {{ jenkins_cli_path }} -s http://localhost:8080 list-plugins | cut -f 1 -d ' '"
   register: "jenkins_installed_plugins"
   changed_when: false
   when: >
-        not jenkins_secure_setup.stat.exists
+        not _jenkins_secure_setup_plugins.stat.exists
 
 - name: plugins | Installing Plugins
   shell: "java -jar {{ jenkins_cli_path }} -s http://localhost:8080 install-plugin {{ item }}"
@@ -52,5 +49,5 @@
     - 'restart jenkins'
   with_items: '{{ jenkins_plugins }}'
   when: >
-        not jenkins_secure_setup.stat.exists and
+        not _jenkins_secure_setup_plugins.stat.exists and
         item not in jenkins_installed_plugins.stdout_lines
