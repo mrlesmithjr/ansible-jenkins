@@ -28,22 +28,22 @@
   register: "jenkins_plugin_updates"
   changed_when: false
   when: >
-        not _jenkins_secure_setup_plugins.stat.exists
+        not _jenkins_secure_setup_plugins['stat']['exists']
 
 - name: plugins | Upgrading Installed Plugins
   shell: "java -jar {{ jenkins_cli_path }} -s http://localhost:8080 install-plugin {{ item }}"
   notify:
     - 'restart jenkins'
-  with_items: '{{ jenkins_plugin_updates.stdout_lines }}'
+  with_items: "{{ jenkins_plugin_updates['stdout_lines'] }}"
   when: >
-        not _jenkins_secure_setup_plugins.stat.exists
+        not _jenkins_secure_setup_plugins['stat']['exists']
 
 - name: plugins | Gathering Installed Plugins
   shell: "java -jar {{ jenkins_cli_path }} -s http://localhost:8080 list-plugins | cut -f 1 -d ' '"
   register: "jenkins_installed_plugins"
   changed_when: false
   when: >
-        not _jenkins_secure_setup_plugins.stat.exists
+        not _jenkins_secure_setup_plugins['stat']['exists']
 
 - name: plugins | Installing Plugins
   shell: "java -jar {{ jenkins_cli_path }} -s http://localhost:8080 install-plugin {{ item }}"
@@ -51,5 +51,5 @@
     - 'restart jenkins'
   with_items: '{{ jenkins_plugins }}'
   when: >
-        not _jenkins_secure_setup_plugins.stat.exists and
-        item not in jenkins_installed_plugins.stdout_lines
+        not _jenkins_secure_setup_plugins['stat']['exists'] and
+        item not in jenkins_installed_plugins['stdout_lines']

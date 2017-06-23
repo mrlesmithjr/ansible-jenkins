@@ -10,7 +10,7 @@
     line: "{{ jenkins_java_options }}=\"-Djava.awt.headless=true -Djenkins.install.runSetupWizard=false\""
   become: true
   register: "jenkins_setup_wizard_disabled"
-  when: jenkins_config_info.disable_setup_wizard
+  when: jenkins_config_info['disable_setup_wizard']
 
 - name: config_jenkins | Enabling Jenkins Setup Wizard
   lineinfile:
@@ -19,7 +19,7 @@
     line: "{{ jenkins_java_options }}=\"-Djava.awt.headless=true\""
   become: true
   register: "jenkins_setup_wizard_enabled"
-  when: not jenkins_config_info.disable_setup_wizard
+  when: not jenkins_config_info['disable_setup_wizard']
 
 - name: config_jenkins | Restarting Jenkins (Setup Wizard Disabled)
   service:
@@ -27,8 +27,8 @@
     state: "restarted"
   become: true
   when: >
-        jenkins_setup_wizard_disabled.changed or
-        jenkins_setup_wizard_enabled.changed
+        jenkins_setup_wizard_disabled['changed'] or
+        jenkins_setup_wizard_enabled['changed']
 
 - name: config_jenkins | Configuring Jenkins
   template:
@@ -52,6 +52,6 @@
     state: "touch"
   become: true
   when: >
-        not _jenkins_secure_setup_config.stat.exists and
-        (jenkins_config_info.use_security is defined and
-        jenkins_config_info.use_security)
+        not _jenkins_secure_setup_config['stat']['exists'] and
+        (jenkins_config_info['use_security'] is defined and
+        jenkins_config_info['use_security'])
