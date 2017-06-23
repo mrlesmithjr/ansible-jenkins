@@ -33,5 +33,4 @@
     pri_domain_name: 'test.vagrant.local'
   roles:
     - role: ansible-jenkins
-      become: true
   tasks:
