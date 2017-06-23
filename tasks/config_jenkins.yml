@@ -8,6 +8,7 @@
     dest: "{{ jenkins_config_file }}"
     regexp: "^{{ jenkins_java_options }}="
     line: "{{ jenkins_java_options }}=\"-Djava.awt.headless=true -Djenkins.install.runSetupWizard=false\""
+  become: true
   register: "jenkins_setup_wizard_disabled"
   when: jenkins_config_info.disable_setup_wizard
 
@@ -16,6 +17,7 @@
     dest: "{{ jenkins_config_file }}"
     regexp: "^{{ jenkins_java_options }}="
     line: "{{ jenkins_java_options }}=\"-Djava.awt.headless=true\""
+  become: true
   register: "jenkins_setup_wizard_enabled"
   when: not jenkins_config_info.disable_setup_wizard
 
@@ -23,6 +25,7 @@
   service:
     name: "jenkins"
     state: "restarted"
+  become: true
   when: >
         jenkins_setup_wizard_disabled.changed or
         jenkins_setup_wizard_enabled.changed
@@ -33,6 +36,7 @@
     dest: "{{ jenkins_home_dir }}/{{ item }}"
     owner: "jenkins"
     group: "jenkins"
+  become: true
   notify:
     - 'restart jenkins'
   with_items: '{{ jenkins_config_files }}'
@@ -46,6 +50,7 @@
   file:
     dest: "{{ jenkins_home_dir }}/.jenkins_secure_setup"
     state: "touch"
+  become: true
   when: >
         not _jenkins_secure_setup_config.stat.exists and
         (jenkins_config_info.use_security is defined and
