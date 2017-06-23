@@ -194,7 +194,7 @@ cd Vagrant
 
 ## License
 
-BSD
+MIT
 
 ## Author Information
 
