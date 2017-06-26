@@ -81,6 +81,8 @@ jenkins_debian_pre_req_packages:
   - 'default-jre-headless'
   - 'git'
   - 'jenkins'
+  - 'python-pip'
+  - 'python-setuptools'
 
 jenkins_email_info:
   default_suffix: '@{{ pri_domain_name }}'
@@ -136,6 +138,8 @@ jenkins_port: 8080
 jenkins_redhat_pre_req_packages:
   - 'git'
   - 'java-1.7.0-openjdk'
+  - 'python-pip'
+  - 'python-setuptools'
 
 jenkins_repo_key: 'http://pkg.jenkins-ci.org/{{ ansible_os_family|lower }}/jenkins-ci.org.key'
 

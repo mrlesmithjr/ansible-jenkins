@@ -1,10 +1,4 @@
 ---
-- name: python_modules | Installing Python Pip
-  easy_install:
-    name: "pip"
-    state: "present"
-  become: true
-
 - name: python_modules | Installing tower-cli
   pip:
     name: "ansible-tower-cli"
