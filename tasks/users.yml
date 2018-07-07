@@ -22,3 +22,4 @@
     src: "{{ jenkins_home_dir }}/.ssh/id_rsa.pub"
     dest: "./ssh_pub_keys/jenkins@{{ ansible_hostname }}.pub"
     flat: yes
+  become: true
