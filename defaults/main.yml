@@ -52,6 +52,7 @@ jenkins_debian_pre_req_packages:
   - git
   - python-pip
   - python-setuptools
+  - sshpass
 
 jenkins_email_info:
   default_suffix: "@{{ pri_domain_name }}"
@@ -109,6 +110,7 @@ jenkins_redhat_pre_req_packages:
   - java-1.7.0-openjdk
   - python-pip
   - python-setuptools
+  - sshpass
 
 jenkins_repo_key: "http://pkg.jenkins-ci.org/{{ ansible_os_family|lower }}/jenkins-ci.org.key"
 
