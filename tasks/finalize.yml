@@ -1,4 +1,10 @@
 ---
+- name: finalize | Waiting For /var/lib/jenkins/secrets/initialAdminPassword
+  wait_for:
+    path: /var/lib/jenkins/secrets/initialAdminPassword
+    state: present
+  become: true
+  
 - name: finalize | Checking If Initial Admin Password Exists
   stat:
     path: "{{ jenkins_home_dir }}/secrets/initialAdminPassword"
