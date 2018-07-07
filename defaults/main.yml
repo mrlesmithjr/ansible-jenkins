@@ -50,7 +50,6 @@ jenkins_debian_pre_req_packages:
   - 'default-jdk'
   - 'default-jre-headless'
   - 'git'
-  - 'jenkins'
   - 'python-pip'
   - 'python-setuptools'
 

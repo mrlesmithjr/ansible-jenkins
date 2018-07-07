@@ -23,7 +23,7 @@
 - name: debian | Installing Jenkins Pre-Reqs
   apt:
     name: "{{ item }}"
-    state: "latest"
+    state: present
   become: true
   with_items: '{{ jenkins_debian_pre_req_packages }}'
 
