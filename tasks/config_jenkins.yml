@@ -41,6 +41,15 @@
     - restart jenkins
   with_items: "{{ jenkins_config_files }}"
 
+- name: config_jenkins | Disabling Secure Setup
+  file:
+    path: "{{ jenkins_home_dir }}/.jenkins_secure_setup"
+    state: absent
+  become: true
+  when: >
+        (jenkins_config_info['use_security'] is defined and
+        not jenkins_config_info['use_security'])
+
 - name: config_jenkins | Checking If Secure Setup
   stat:
     path: "{{ jenkins_home_dir }}/.jenkins_secure_setup"
