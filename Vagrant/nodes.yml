@@ -1,8 +1,8 @@
 ---
-- name: 'node0'
+- name: node0
   ansible_groups:
-    - 'jenkins'
-  box: 'mrlesmithjr/xenial64'
+    - jenkins
+  box: mrlesmithjr/xenial64
   desktop: false
   # disks:
   #   - size: 10
