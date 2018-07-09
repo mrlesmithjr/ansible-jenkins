@@ -39,6 +39,9 @@
       # - vmware-vrealize-codestream
       - vsphere-cloud
       - workflow-aggregator
+    jenkins_script_approvals:
+      - method hudson.plugins.git.GitSCM getBranches
+      - method hudson.plugins.git.GitSCM getUserRemoteConfigs
     pri_domain_name: test.vagrant.local
   roles:
     - role: ansible-jenkins
