@@ -45,6 +45,7 @@ jenkins_config_files:
   - jenkins.CLI.xml
   - jenkins.model.JenkinsLocationConfiguration.xml
   - org.jenkinsci.plugins.ansible.AnsibleInstallation.xml
+  - scriptApproval.xml
 
 jenkins_debian_pre_req_packages:
   - default-jdk
@@ -113,5 +114,9 @@ jenkins_redhat_pre_req_packages:
   - sshpass
 
 jenkins_repo_key: "http://pkg.jenkins-ci.org/{{ ansible_os_family|lower }}/jenkins-ci.org.key"
+
+jenkins_script_approvals: []
+  # - method hudson.plugins.git.GitSCM getBranches
+  # - method hudson.plugins.git.GitSCM getUserRemoteConfigs
 
 pri_domain_name: example.org
